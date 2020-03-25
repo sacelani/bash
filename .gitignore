@@ -1,52 +1,111 @@
-# Prerequisites
-*.d
-
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
-
-# Linker output
-*.ilk
-*.map
-*.exp
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
-
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
-
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
-
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
-
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
+.autofsck
+.bash_history
+.bash_logout
+.bash_sessions
+.cache
+cadenas
+.ccache
+CDS.log
+.cds_pvsui
+.CFUserTextEncoding
+.config
+Custom Office Templates
+.dbus
+Desktop
+desktop.ini
+Direct Connect
+Documents
+Downloaded Installations
+Downloads
+._.DS_Store
+.DS_Store
+E26D0CB2C1EE
+eagle
+.eclipse
+.emacs
+.emacs.d
+en-US-7-1.bdic
+.esd_auth
+.felix
+.fontconfig
+.gconf
+.gconfd
+.git
+.gnome
+.gnome2
+.gnome2_private
+.gnote
+.gnupg
+.gstreamer-0.10
+.gvfs
+.history
+HomeMigration.txt
+.ICEauthority
+.idlerc
+IE
+.IntelliJIdea2016.2
+.IntelliJIdea2018.1
+Inventor
+Inventor Server SDK ACAD 2016
+Inventor Server SDK ACAD 2018
+InvSvr_x64_NAVMAN_13
+InvSvr_x64_NAVMAN_15
+.java
+.kde
+LabVIEW Data
+.lesshst
+.libmgr
+Library
+._Library
+.local
+.matlab
+MATLAB
+.matplotlib
+Movies
+.mozilla
+mozmail
+Music
+My Music
+My Pictures
+My Shapes
+My Tableau Repository
+My Videos
+National Instruments
+.nautilus
+.nv
+opend_data
+.oracle_jre_usage
+Pictures
+.pki
+pm_api
+pointcloudclient
+Polyspace_Workspace
+print_submit
+.processing
+Public
+.pulse
+.pulse-cookie
+$RECYCLE.BIN
+Scores
+SettingsPackages
+Showcase2016
+.skipbuddy
+SPB_DATA
+.Spotlight-V100
+.ssh
+.subversion
+.swt
+Templates
+testspace
+Thumbs.db
+.thunderbird
+.tooling
+Videos
+Visual Studio 2015
+WINDOWS
+WindowsPowerShell
+wingx
+workspace
+.xsession-errors
+Zotero
+.zshrc
