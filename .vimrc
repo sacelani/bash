@@ -68,20 +68,20 @@ inoremap ZZ          <ESC>:wq<CR>
 
 " Open new files with comment blocks
 " Bash, Julia, and Ruby all use pound signs ( # )
-autocmd BufNewFile *.sh :r ~/Desktop/vim/else/comment#.txt
-autocmd BufNewFile *.jl :r ~/Desktop/vim/else/comment#.txt
-autocmd BufNewFile *.rb :r ~/Desktop/vim/else/comment#.txt
+autocmd BufNewFile *.sh :r ~/.vim/comment#.txt
+autocmd BufNewFile *.jl :r ~/.vim/comment#.txt
+autocmd BufNewFile *.rb :r ~/.vim/comment#.txt
 
 " Matlab uses percent signs ( % )
-autocmd BufNewFile *.m  :r ~/Desktop/vim/else/commentP.txt
+autocmd BufNewFile *.m  :r ~/.vim/commentP.txt
 
 " Python uses triple quotes ( """ -> """ )
-autocmd BufNewFile *.py :r ~/Desktop/vim/else/commentQ.txt
+autocmd BufNewFile *.py :r ~/.vim/commentQ.txt
 
 " C, Go, and Rust use double slashes
-autocmd BufNewFile *.c  :r ~/Desktop/vim/else/commentS.txt
-autocmd BufNewFile *.go :r ~/Desktop/vim/else/commentS.txt
-autocmd BufNewFile *.rs :r ~/Desktop/vim/else/commentS.txt
+autocmd BufNewFile *.c  :r ~/.vim/commentS.txt
+autocmd BufNewFile *.go :r ~/.vim/commentS.txt
+autocmd BufNewFile *.rs :r ~/.vim/commentS.txt
 
 
 " So this is how you fuck around
