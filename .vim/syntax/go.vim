@@ -1,7 +1,7 @@
 " ==============================================================================
 " Auth: David Daub <david.daub@googlemail.com>, Alex
 " Lang: GoLang
-" Revn: 15-11-2009 Official, 12-26-2019   1.3
+" Revn: 15-11-2009 Official, 03-27-2020   1.4
 " Func: Define syntax coloring for .go files when being edited in Vim
 "
 " TODO: very much
@@ -19,6 +19,7 @@
 " 01-02-2019:  added coloring for main and Scanln
 " 12-26-2019:  changed goBoolean link from Keyword to Type
 "              added coloring for error
+" 03-27-2020:  added while to list of repetition structures
 "
 " ==============================================================================
 
@@ -39,6 +40,8 @@ syn keyword     goConditional    if else switch
 syn keyword     goBranch         goto break continue
 syn keyword     goLabel          case default
 syn keyword     goRepeat         for
+syn keyword     goRepeat         while
+" Added this line ^^^
 syn keyword     goType           struct const interface func
 syn keyword     goType           var map
 syn keyword     goType           uint8 uint16 uint32 uint64

@@ -1,7 +1,7 @@
 # ==============================================================================
 # Auth: Alex Celani
 # File: .bash_profile
-# Revn: 03-25-2020  0.4
+# Revn: 04-16-2020  1.4
 # Func: Define user-made aliases and functions to make using the terminal easier
 #
 # TODO:  Fix alias to cd
@@ -76,9 +76,9 @@ newcd() {
 
 ### Jump to grad school directory, user specified semester if possible
 grad() {
-   cd ~/Desktop/grad                # Jump to grad directory
+   cd ~/Documents/everything/                  # Jump to grad directory
    if [ "$#" -eq 1 ]; then          # See if user entered a semester argument
-      cd "semester-$1" >/dev/null 2>/dev/null  # Go to semester, or error silently
+      cd "semester-$1" >/dev/null 2>/dev/null  # Go to semester, error silently
    fi
 }
 

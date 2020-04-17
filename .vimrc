@@ -1,7 +1,7 @@
 " ==============================================================================
 " Auth: Sam Celani
 " File: .vimrc
-" Revn: 08-01-2019  0.4
+" Revn: 04-16-2020  1.5
 " Func: Define how Vim works, set parameters, define keymaps
 "
 " TODO:
@@ -13,16 +13,23 @@
 "                 header block
 " 06-01-2019:  fixed autocomplete braces not holding indents
 " 08-01-2019:  added linewrapping
+" 03-27-2020:  explicitly set syntax coloring
+"              set column numbers
+" 04-16-2020:  changed automatic comment header directory to .vim/*
 "
 " ==============================================================================
 
-
+" Explicitly set syntax coloring to on
+syntax on
 
 " Reset highlight color for comments to lightblue
 hi comment ctermfg=lightblue
 
 " Set line numbering
 set number
+
+" Set column number
+set ruler
 
 " Set the amount of spaces in a tab
 set tabstop=3
@@ -68,20 +75,20 @@ inoremap ZZ          <ESC>:wq<CR>
 
 " Open new files with comment blocks
 " Bash, Julia, and Ruby all use pound signs ( # )
-autocmd BufNewFile *.sh :r ~/.vim/else/comment#.txt
-autocmd BufNewFile *.jl :r ~/.vim/else/comment#.txt
-autocmd BufNewFile *.rb :r ~/.vim/else/comment#.txt
+autocmd BufNewFile *.sh :r ~/.vim/comment#.txt
+autocmd BufNewFile *.jl :r ~/.vim/comment#.txt
+autocmd BufNewFile *.rb :r ~/.vim/comment#.txt
 
 " Matlab uses percent signs ( % )
-autocmd BufNewFile *.m  :r ~/.vim/else/commentP.txt
+autocmd BufNewFile *.m  :r ~/.vim/commentP.txt
 
 " Python uses triple quotes ( """ -> """ )
-autocmd BufNewFile *.py :r ~/.vim/else/commentQ.txt
+autocmd BufNewFile *.py :r ~/.vim/commentQ.txt
 
 " C, Go, and Rust use double slashes
-autocmd BufNewFile *.c  :r ~/.vim/else/commentS.txt
-autocmd BufNewFile *.go :r ~/.vim/else/commentS.txt
-autocmd BufNewFile *.rs :r ~/.vim/else/commentS.txt
+autocmd BufNewFile *.c  :r ~/.vim/commentS.txt
+autocmd BufNewFile *.go :r ~/.vim/commentS.txt
+autocmd BufNewFile *.rs :r ~/.vim/commentS.txt
 
 
 " So this is how you fuck around
