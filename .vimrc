@@ -1,7 +1,7 @@
 " ==============================================================================
 " Auth: Sam Celani
 " File: .vimrc
-" Revn: 08-01-2019  0.4
+" Revn: 04-16-2020  1.5
 " Func: Define how Vim works, set parameters, define keymaps
 "
 " TODO:
@@ -13,16 +13,23 @@
 "                 header block
 " 06-01-2019:  fixed autocomplete braces not holding indents
 " 08-01-2019:  added linewrapping
+" 03-27-2020:  explicitly set syntax coloring
+"              set column numbers
+" 04-16-2020:  changed automatic comment header directory to .vim/*
 "
 " ==============================================================================
 
-
+" Explicitly set syntax coloring to on
+syntax on
 
 " Reset highlight color for comments to lightblue
 hi comment ctermfg=lightblue
 
 " Set line numbering
 set number
+
+" Set column number
+set ruler
 
 " Set the amount of spaces in a tab
 set tabstop=3
