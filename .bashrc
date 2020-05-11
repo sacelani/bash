@@ -1,7 +1,7 @@
 # ==============================================================================
 # Auth: Sam Celani
 # File: .bashrc
-# Revn: 06-21-2019  0.3
+# Revn: 05-11-2020  1.5
 # Func: Define user-made aliases and functions to make using the terminal easier
 #
 # TODO:  Fix alias to cd
@@ -15,9 +15,12 @@
 #              removed mkcd
 #              made hide, ssy, and SSY aliases instead of functions
 # 06-21-2019:  finally wrote Func field in header
+# 05-11-2020:  added control structure to detect architecture and make decisions
+#                 about directoriesfor grad() and src()
 #
 # ==============================================================================
 
+src
 
 # User specific aliases and functions
 ## Aliases
@@ -32,17 +35,11 @@ alias cc="newcd"
 ### Used for login
 alias s="ssh sacelani@colossus.it.mtu.edu"
 
-### Reload source
-alias src="source ~/.bashrc"
-
 ### Move to desktop fast
 alias desk="cd ~/Desktop"
 
 ### Move to desktop fast, verbose
 alias DESK="CD ~/Desktop"
-
-### Jump to go dev directory
-alias GO="cd ~/Desktop/vim/.go"
 
 ### Go home
 alias home="cd ~"
@@ -64,6 +61,14 @@ alias acro="/c/Program\ Files\ \(x86\)/Adobe/Acrobat\ DC/Acrobat/Acrobat.exe $1"
 
 ## Functions
 
+### 
+src() {
+   if [ arch == "i834" ]; then   # Check to see if using boofnet
+      source ~/.bash_profile     # Reload boofnet bash profile
+   else                          # If not boofnet, colossus
+      source ~/.bashrc           # Reload colossus bash profile
+   fi
+}
 ### Change directory and show contents
 CD() {
    cd $1    # Move
@@ -85,7 +90,12 @@ newcd() {
 
 ### Jump to grad school directory, user specified semester if possible
 grad() {
-   cd ~/Desktop/grad                # Jump to grad directory
+   if [ arch == "i834" ]; then      # Check to see if using boofnet
+       cd ~/Documents/everything    # Jump to grad directory
+   else                             # If not boofnet, colossus
+       cd ~/Desktop/grad            # Jump to grad directory
+   fi
+
    if [ "$#" -eq 1 ]; then          # See if user entered a semester argument
       cd "semester-$1" >/dev/null 2>/dev/null  # Go to semester, or error silently
    fi
