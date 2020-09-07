@@ -1,10 +1,14 @@
 " ==============================================================================
 " Auth: Sam Celani
 " File: .vimrc
-" Revn: 04-16-2020  1.5
+" Revn: 09-05-2020  1.7
 " Func: Define how Vim works, set parameters, define keymaps
 "
-" TODO:
+" TODO: add in Greek keymaps
+"       change comment color
+"       make keymaps for notetaking/indenting
+"       define my own notetaking syntax file
+"       make goddamn numpad work on terminal/in vim
 " ==============================================================================
 " CHANGE LOG
 " ------------------------------------------------------------------------------
@@ -16,6 +20,8 @@
 " 03-27-2020:  explicitly set syntax coloring
 "              set column numbers
 " 04-16-2020:  changed automatic comment header directory to .vim/*
+" 08-30-2020:  changed comment#.txt to commentN.txt to avoid parse errors
+" 09-05-2020:  changed tapstop and shiftwidth from 3 to 4
 "
 " ==============================================================================
 
@@ -32,10 +38,10 @@ set number
 set ruler
 
 " Set the amount of spaces in a tab
-set tabstop=3
+set tabstop=4
 
 " NFC
-set shiftwidth=3
+set shiftwidth=4
 
 " Replace tab char with spaces
 set expandtab
@@ -75,9 +81,9 @@ inoremap ZZ          <ESC>:wq<CR>
 
 " Open new files with comment blocks
 " Bash, Julia, and Ruby all use pound signs ( # )
-autocmd BufNewFile *.sh :r ~/.vim/comment#.txt
-autocmd BufNewFile *.jl :r ~/.vim/comment#.txt
-autocmd BufNewFile *.rb :r ~/.vim/comment#.txt
+autocmd BufNewFile *.sh :r ~/.vim/commentN.txt
+autocmd BufNewFile *.jl :r ~/.vim/commentN.txt
+autocmd BufNewFile *.rb :r ~/.vim/commentN.txt
 
 " Matlab uses percent signs ( % )
 autocmd BufNewFile *.m  :r ~/.vim/commentP.txt
