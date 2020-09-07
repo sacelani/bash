@@ -1,7 +1,7 @@
 # ==============================================================================
 # Auth: Alex Celani
 # File: .bash_profile
-# Revn: 04-16-2020  1.4
+# Revn: 05-11-2020  1.6
 # Func: Define user-made aliases and functions to make using the terminal easier
 #
 # TODO:  Fix alias to cd
@@ -18,9 +18,10 @@
 # 03-25-2020:  copied from .bashrc
 #              removed school-based functions to go to directories that do not
 #                 exist on boofnet
+# 05-11-2020:  added control structure to detect architecure and make decisions
+#                 about directories for grad() and src()
 #
 # ==============================================================================
-
 
 # User specific aliases and functions
 ## Aliases
@@ -34,9 +35,6 @@ alias cc="newcd"
 
 ### Used for login
 alias s="ssh sacelani@colossus.it.mtu.edu"
-
-### Reload source
-alias src="source ~/.bash_profile"
 
 ### Move to desktop fast
 alias desk="cd ~/Desktop"
@@ -54,6 +52,16 @@ alias HOME="CD ~"
 
 
 ## Functions
+
+### Detect architecture and load correct source file
+src() {
+   if [ arch == "i834" ]; then      # Check to see if using boofnet
+      source ~/.bash_profile        # Reload boofnet bash profile
+   else                             # If not boofnet, colossus
+      source ~/.bashrc              # Reload colossus bash profile
+   fi
+}
+
 
 ### Change directory and show contents
 CD() {
@@ -76,7 +84,12 @@ newcd() {
 
 ### Jump to grad school directory, user specified semester if possible
 grad() {
-   cd ~/Documents/everything/                  # Jump to grad directory
+   if [ arch == "i834" ]; then      # Check to see using boofnet
+      cd ~/Documents/everything/    # Jump to grad directory, boofnet
+   else                             # If not boofnet, colossus
+      cd ~/Desktop/grad             # Jump to grad directory, colossus
+   fi
+
    if [ "$#" -eq 1 ]; then          # See if user entered a semester argument
       cd "semester-$1" >/dev/null 2>/dev/null  # Go to semester, error silently
    fi
