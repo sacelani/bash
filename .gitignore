@@ -31,6 +31,7 @@ en-US-7-1.bdic
 .gconf
 .gconfd
 .git
+.gitignore
 .gnome
 .gnome2
 .gnome2_private
@@ -51,6 +52,7 @@ Inventor Server SDK ACAD 2018
 InvSvr_x64_NAVMAN_13
 InvSvr_x64_NAVMAN_15
 .java
+.julia
 .kde
 LabVIEW Data
 .lesshst
@@ -120,6 +122,7 @@ Zotero
 .bash_sessions
 .cargo
 .gitconfig
+.gitignore
 .oracle_jre_usage
 .profile
 .python_history
