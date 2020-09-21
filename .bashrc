@@ -63,7 +63,7 @@ alias acro="/c/Program\ Files\ \(x86\)/Adobe/Acrobat\ DC/Acrobat/Acrobat.exe $1"
 
 ### 
 src() {
-   if [ arch == "i834" ]; then   # Check to see if using boofnet
+   if [ arch == "i386" ]; then   # Check to see if using boofnet
       source ~/.bash_profile     # Reload boofnet bash profile
    else                          # If not boofnet, colossus
       source ~/.bashrc           # Reload colossus bash profile
@@ -90,7 +90,7 @@ newcd() {
 
 ### Jump to grad school directory, user specified semester if possible
 grad() {
-   if [ arch == "i834" ]; then      # Check to see if using boofnet
+   if [ arch == "i386" ]; then      # Check to see if using boofnet
        cd ~/Documents/everything    # Jump to grad directory
    else                             # If not boofnet, colossus
        cd ~/Desktop/grad            # Jump to grad directory

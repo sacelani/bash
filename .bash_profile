@@ -55,10 +55,10 @@ alias HOME="CD ~"
 
 ### Detect architecture and load correct source file
 src() {
-   if [ arch == "i834" ]; then      # Check to see if using boofnet
-      source ~/.bash_profile        # Reload boofnet bash profile
-   else                             # If not boofnet, colossus
+   if [ arch == "x86_64" ]; then    # Check to see if using colossus
       source ~/.bashrc              # Reload colossus bash profile
+   else                             # If not colossus, boofnet
+      source ~/.bash_profile        # Reload boofnet bash profile
    fi
 }
 
@@ -84,10 +84,10 @@ newcd() {
 
 ### Jump to grad school directory, user specified semester if possible
 grad() {
-   if [ arch == "i834" ]; then      # Check to see using boofnet
-      cd ~/Documents/everything/    # Jump to grad directory, boofnet
-   else                             # If not boofnet, colossus
-      cd ~/Desktop/grad             # Jump to grad directory, colossus
+   if [ arch == "x86_64" ]; then    # Check to see using colossus
+      cd ~/Desktop/grad/            # Jump to grad directory, colossus
+   else                             # If not colossus, boofnet
+      cd ~/Documents/everything     # Jump to grad directory, boofnet
    fi
 
    if [ "$#" -eq 1 ]; then          # See if user entered a semester argument
