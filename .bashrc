@@ -1,7 +1,7 @@
 # ==============================================================================
 # Auth: Sam Celani
 # File: .bashrc
-# Revn: 05-11-2020  1.5
+# Revn: 09-29-2020  1.6
 # Func: Define user-made aliases and functions to make using the terminal easier
 #
 # TODO:  Fix alias to cd
@@ -17,6 +17,8 @@
 # 06-21-2019:  finally wrote Func field in header
 # 05-11-2020:  added control structure to detect architecture and make decisions
 #                 about directoriesfor grad() and src()
+# 09-29-2020:  wrote gitMake() and renamed newcd() to mkcd()
+#              updated src() to contain "x86_64" instead of "i386"
 #
 # ==============================================================================
 
@@ -28,9 +30,6 @@ src
 ### Shows everything in detail, except . and ..
 alias ll="ls -Ahl"
 alias  l="ls -Ahl"
-
-### Make cd work even if directory doesn't exist
-alias cc="newcd"
 
 ### Used for login
 alias s="ssh sacelani@colossus.it.mtu.edu"
@@ -63,10 +62,10 @@ alias acro="/c/Program\ Files\ \(x86\)/Adobe/Acrobat\ DC/Acrobat/Acrobat.exe $1"
 
 ### 
 src() {
-   if [ arch == "i386" ]; then   # Check to see if using boofnet
-      source ~/.bash_profile     # Reload boofnet bash profile
-   else                          # If not boofnet, colossus
-      source ~/.bashrc           # Reload colossus bash profile
+   if [ arch == "x86_64" ]; then   # Check to see if using colossus
+      source ~/.bashrc             # Reload colossus bash profile
+   else                            # If not colossus, colossus
+      source ~/.bash_profile       # Reload boofnet bash profile
    fi
 }
 ### Change directory and show contents
@@ -77,7 +76,7 @@ CD() {
 }
 
 ### If cd fails, make the new directory and cd in
-newcd() {
+mckd() {
    oldD=$(pwd)                   # Snag the current directory
    cd $1 >/dev/null 2>/dev/null  # cd, direct error output to null
    newD=$(pwd)                   # Snag current directory again
@@ -90,10 +89,10 @@ newcd() {
 
 ### Jump to grad school directory, user specified semester if possible
 grad() {
-   if [ arch == "i386" ]; then      # Check to see if using boofnet
-       cd ~/Documents/everything    # Jump to grad directory
-   else                             # If not boofnet, colossus
+   if [ arch == "x86_64" ]; then    # Check to see if using colossus
        cd ~/Desktop/grad            # Jump to grad directory
+   else                             # If not colossus, colossus
+       cd ~/Documents/everything    # Jump to grad directory
    fi
 
    if [ "$#" -eq 1 ]; then          # See if user entered a semester argument
@@ -101,7 +100,18 @@ grad() {
    fi
 }
 
-
+### Take the name of the new repository, and tie it to repo on Github
+gitMake() {
+    if [ "$#" -eq 1 ]; then
+        # These three lines were given by github.com
+        git remote add origin https://github.com/sacelani/$1.git
+        git branch -M master
+        git push -u origin master
+    else                # If the user doesn't give a name for the repo
+        echo -e "Usage:: gitMake REPO"          # Print usage
+        echo -e "\tConnect local repo REPO to Github repo"
+    fi
+}
 
 ### Go directly to HwSw Lab folder
 ### I don't think any of these are necessary anymore, but I'll leave them

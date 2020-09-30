@@ -1,7 +1,7 @@
 # ==============================================================================
 # Auth: Alex Celani
 # File: .bash_profile
-# Revn: 05-11-2020  1.6
+# Revn: 09-29-2020  1.7
 # Func: Define user-made aliases and functions to make using the terminal easier
 #
 # TODO:  Fix alias to cd
@@ -20,6 +20,8 @@
 #                 exist on boofnet
 # 05-11-2020:  added control structure to detect architecure and make decisions
 #                 about directories for grad() and src()
+# 09-29-2020:  wrote gitMake()
+#              renamed newcd() to mkcd()
 #
 # ==============================================================================
 
@@ -29,9 +31,6 @@
 ### Shows everything in detail, except . and ..
 alias ll="ls -AGhl"
 alias  l="ls -AGhl"
-
-### Make cd work even if directory doesn't exist
-alias cc="newcd"
 
 ### Used for login
 alias s="ssh sacelani@colossus.it.mtu.edu"
@@ -71,7 +70,7 @@ CD() {
 }
 
 ### If cd fails, make the new directory and cd in
-newcd() {
+mkcd() {
    oldD=$(pwd)                   # Snag the current directory
    cd $1 >/dev/null 2>/dev/null  # cd, direct error output to null
    newD=$(pwd)                   # Snag current directory again
@@ -93,6 +92,19 @@ grad() {
    if [ "$#" -eq 1 ]; then          # See if user entered a semester argument
       cd "semester-$1" >/dev/null 2>/dev/null  # Go to semester, error silently
    fi
+}
+
+### Take new repository and connect it to a Github repository
+gitMake() {
+    if [ "$#" -eq 1 ]; then
+        # These three lines were given by github.com
+        git remote add origin https://github.com/sacelani/$1.git
+        git branch -M master
+        git push -u origin master
+    else                # If the user doesn't give a name for the repo
+        echo -e "Usage:: gitMake REPO"          # Print usage
+        echo -e "\tConnect local repo REPO to Github repo"
+    fi
 }
 
 ## Functions
