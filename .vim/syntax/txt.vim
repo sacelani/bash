@@ -1,11 +1,13 @@
 " ==============================================================================
 " Auth: Alex Celani
 " Lang: Text
-" Revn: 10-02-2020  1.3
+" Revn: 10-03-2020  1.4
 " Func: Define syntax coloring for .txt files when being edited in Vim
 "
 " TODO: make comments create new comments on line overrun and newline
 "       add highlighting for titles, vocab words, definitions
+"       color things explicitly with 'hi <group> cterm[f,b]g=<Color>, and add
+"           table of acceptable options, with link ( :help hi )
 " ==============================================================================
 " CHANGE LOG
 " ------------------------------------------------------------------------------
@@ -28,6 +30,7 @@
 "              added Color Guide (for the default highlighting file) and source
 "              changed some colors up a bit
 "              made property delimiter of variable length, and also use =>
+" 10-03-2020:  added reminded to color explicitly in Todo
 "
 " ==============================================================================
 
