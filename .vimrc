@@ -1,7 +1,7 @@
 " ==============================================================================
 " Auth: Sam Celani
 " File: .vimrc
-" Revn: 09-05-2020  1.7
+" Revn: 10-02-2020  1.8
 " Func: Define how Vim works, set parameters, define keymaps
 "
 " TODO: add in Greek keymaps
@@ -22,6 +22,7 @@
 " 04-16-2020:  changed automatic comment header directory to .vim/*
 " 08-30-2020:  changed comment#.txt to commentN.txt to avoid parse errors
 " 09-05-2020:  changed tapstop and shiftwidth from 3 to 4
+" 10-02-2020:  added .txt to files that open commentN.txt
 "
 " ==============================================================================
 
@@ -80,21 +81,22 @@ inoremap ZZ          <ESC>:wq<CR>
 
 
 " Open new files with comment blocks
-" Bash, Julia, and Ruby all use pound signs ( # )
-autocmd BufNewFile *.sh :r ~/.vim/commentN.txt
-autocmd BufNewFile *.jl :r ~/.vim/commentN.txt
-autocmd BufNewFile *.rb :r ~/.vim/commentN.txt
+" Bash, Julia, Ruby, and Text all use pound signs ( # )
+autocmd BufNewFile *.sh  :r ~/.vim/commentN.txt
+autocmd BufNewFile *.jl  :r ~/.vim/commentN.txt
+autocmd BufNewFile *.rb  :r ~/.vim/commentN.txt
+autocmd BufNewFile *.txt :r ~/.vim/commentN.txt
 
 " Matlab uses percent signs ( % )
-autocmd BufNewFile *.m  :r ~/.vim/commentP.txt
+autocmd BufNewFile *.m   :r ~/.vim/commentP.txt
 
 " Python uses triple quotes ( """ -> """ )
-autocmd BufNewFile *.py :r ~/.vim/commentQ.txt
+autocmd BufNewFile *.py  :r ~/.vim/commentQ.txt
 
 " C, Go, and Rust use double slashes
-autocmd BufNewFile *.c  :r ~/.vim/commentS.txt
-autocmd BufNewFile *.go :r ~/.vim/commentS.txt
-autocmd BufNewFile *.rs :r ~/.vim/commentS.txt
+autocmd BufNewFile *.c   :r ~/.vim/commentS.txt
+autocmd BufNewFile *.go  :r ~/.vim/commentS.txt
+autocmd BufNewFile *.rs  :r ~/.vim/commentS.txt
 
 
 " So this is how you fuck around
