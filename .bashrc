@@ -1,7 +1,7 @@
 # ==============================================================================
 # Auth: Sam Celani
 # File: .bashrc
-# Revn: 09-29-2020  1.6
+# Revn: 10-07-2020  1.7
 # Func: Define user-made aliases and functions to make using the terminal easier
 #
 # TODO:  Fix alias to cd
@@ -19,10 +19,12 @@
 #                 about directoriesfor grad() and src()
 # 09-29-2020:  wrote gitMake() and renamed newcd() to mkcd()
 #              updated src() to contain "x86_64" instead of "i386"
+# 10-07-2020:  fixed src() and grad() not working on colossus by changeing call
+#                 to arch from "arch" to "$(arch)"
+#              removed call to src at the beginning of file, don't remember why
+#                 I thought adding it would be a good idea
 #
 # ==============================================================================
-
-src
 
 # User specific aliases and functions
 ## Aliases
@@ -62,7 +64,7 @@ alias acro="/c/Program\ Files\ \(x86\)/Adobe/Acrobat\ DC/Acrobat/Acrobat.exe $1"
 
 ### 
 src() {
-   if [ arch == "x86_64" ]; then   # Check to see if using colossus
+   if [ $(arch) == "x86_64" ]; then   # Check to see if using colossus
       source ~/.bashrc             # Reload colossus bash profile
    else                            # If not colossus, colossus
       source ~/.bash_profile       # Reload boofnet bash profile
@@ -89,7 +91,7 @@ mckd() {
 
 ### Jump to grad school directory, user specified semester if possible
 grad() {
-   if [ arch == "x86_64" ]; then    # Check to see if using colossus
+   if [ $(arch) == "x86_64" ]; then    # Check to see if using colossus
        cd ~/Desktop/grad            # Jump to grad directory
    else                             # If not colossus, colossus
        cd ~/Documents/everything    # Jump to grad directory

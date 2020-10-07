@@ -1,7 +1,7 @@
 # ==============================================================================
 # Auth: Alex Celani
 # File: .bash_profile
-# Revn: 09-29-2020  1.7
+# Revn: 10-07-2020  1.8
 # Func: Define user-made aliases and functions to make using the terminal easier
 #
 # TODO:  Fix alias to cd
@@ -22,8 +22,12 @@
 #                 about directories for grad() and src()
 # 09-29-2020:  wrote gitMake()
 #              renamed newcd() to mkcd()
+# 10-07-2020:  fixed src() and grad() not working on colossus by changing call
+#                 to arch from "arch" to "$(arch)"
+#              added call to src() at the beginning of the file
 #
 # ==============================================================================
+
 
 # User specific aliases and functions
 ## Aliases
