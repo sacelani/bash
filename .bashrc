@@ -57,6 +57,7 @@ alias acro="/c/Program\ Files\ \(x86\)/Adobe/Acrobat\ DC/Acrobat/Acrobat.exe $1"
 
 ## Aliases
 
+export PS1="\\h:\\W ->"
 
 ## Functions
 
