@@ -1,44 +1,79 @@
-" ==============================================================================
+" ====================================================================
 " Auth: Alex Celani
 " Lang: Text
-" Revn: 10-03-2020  1.4
+" Revn: 10-16-2020  1.5
 " Func: Define syntax coloring for .txt files when being edited in Vim
 "
 " TODO: make comments create new comments on line overrun and newline
 "       add highlighting for titles, vocab words, definitions
-"       color things explicitly with 'hi <group> cterm[f,b]g=<Color>, and add
-"           table of acceptable options, with link ( :help hi )
-" ==============================================================================
+"       create a better template file showing all the highlighting
+"       get term=underline working to avoid using link statements
+" ====================================================================
 " CHANGE LOG
-" ------------------------------------------------------------------------------
+" --------------------------------------------------------------------
 " 09-29-2020:  copy over from go.vim
 " 10-01-2020:  gutted entire file
 "              made my own quote regex
 "              made comment
 "              added link to list of group names and their colors
-" 10-02-2020:  rewrote quotes to allow for multiline quotes with rollover
+" 10-02-2020:  rewrote quotes to allow multiline quotes with rollover
 "              added recognition for numbers
 "              separated numbers into numbers and numbers in quotes
-"              added recognition of dates, to underline dates in the change log
-"              added to comments to recognize Auth, Lang, Revn, Func, and Todo
+"              added date recognition, underlines dates in change log
+"              made comments recognize Auth, Lang, Revn, Func, Todo
 "              underline Auth, Lang, Revn, Func, Todo, and Change Log
-"              recognized fields, the field delimiter (::), and property
-"                   delimiter (->)
+"              recognized fields, the field delimiter (::), and
+"                   property delimiter (->)
 "              added tags for notes to self, and the body of such
-"              began to write something to passively color the body, no luck yet
-"              colored things relating to Norway green, and Russia red
-"              added Color Guide (for the default highlighting file) and source
+"              began writing something to passively color body
+"              colored things Norse things green, and Russian red
+"              added Color Guide, and source
 "              changed some colors up a bit
-"              made property delimiter of variable length, and also use =>
+"              made property delimiter of variable length, also use =>
 " 10-03-2020:  added reminded to color explicitly in Todo
+" 10-11-2020:  replaced most links with explicit ctermfg statements
+"              added expressions, names, operations
+"              changed some colors up a bit
+"              shortened lines down to <= 70 characters
+" 10-16-2020:  added Norge to norwegian words
+"              added spaces around = in expression to avoid confusion
+"                   with => marker
+"              changed noteTag color from DkRed to Red to match notes
+"              added <> region
+"              added i, j, e, pi as numbers
 "
-" ==============================================================================
+" ====================================================================
 
 " Quit when a (custom) syntax file was already loaded
 if exists("b:current_syntax")
   finish
 endif
 
+
+" XXX Expressions:
+" highlight equations, formulas, expressions, etc
+" expressions: .* is any number of characters
+"              = is literal
+"              .* is any number of characters again
+"              added spaces around = to avoid confusion with =>
+"              
+"              the idea is that it's stuff that equals stuff, and we
+"              worry about what it is later
+" name: \c case-escapes the sequence
+"       \a is alphabetic characters, probably don't need escaping
+"       \+ is at least 1 match, so it's 1 or more letters is a name
+" name: \c\a\=  is 0 or 1 case-escaped alphabetic characters
+"       _       is literal, best I can get to subscripts
+"       \a\+    is 1 or more case-escaped alphabetic characters
+" op: inside [] can allow for one choice from any contained characters
+"     =, +, -, /, ^ are all literals for operations
+"     \* escapes the * character, which is now multiplication
+" Num: see Numbers: below
+" FIXME try to make name into one thing, probably with \{,1}
+syn match expression ".* = .*" contains=name,op,num skipwhite
+syn match name "\c\a\+" contained
+syn match name "\c\a\=_\a\+" contained
+syn match op "[=+-/^\*]" contained
 
 
 " XXX Quotes:
@@ -49,8 +84,8 @@ endif
 "     quote"
 "     "quote only if the it rolls
 "     over onto the next line"
-" Calling the quotation a region instead of pattern match makes it easier to
-" wrap around a new line
+" Calling the quotation a region instead of pattern match makes it
+" easier to wrap around a new line
 " the first and last quote define the expression
 " \ escapes the next character, allowing \" to appear as a literal "
 " thus, start and end are both quotes, and the reqion can span lines
@@ -63,43 +98,55 @@ syn region quote start="\"" end="\"" contains=numQuote,norwegian,russian
 "  . is every non-new line character possible
 "  \{,} is \{0,infinity}, means I'm looking for between 0 and infinity
 "       matches for the previous character, which is a wildcard, .
-"  \{-,} means that it prioritizes the smallest amount of matches possible
+"  \{-,} will prioritize the smallest amount of matches possible
 " syn match quote "\".\{-,}\""
 "  -- DEPRECATED --
 
 
+" XXX Unnamed Field:
+" match, because it should really only span one line
+" < and > are literals
+" .* means any character any number of times
+" contains numQuote
+syn match unnamed "<.*>" contains=numQuote
+
+
 " XXX Numbers:
-" num and numQuote allow for the coloring of numbers. numQuote exists for the
-" for the sole purpose of coloring numbers differently for when they're inside
-"       of a quote, thus the contained keyword for numQuote
+" num and numQuote allow for the coloring of numbers. numQuote exists
+" for the sole purpose of coloring numbers differently for when
+" they're inside of a quote, thus the contained keyword for numQuote
 " the first and last quote define the expression
-" - is the negative symbol, and \? allows for either 0 or 1 matchings, which
+" - is the negative symbol, \? allows for 0 or 1 matchings, which
 "       allows for negative numbers
-" \d is any digit [0-9], and \+ is one or more matches, which means there MUST
-"       be at least one number for a match to be seen
-" \a is any letter [a-zA-Z], * allows for any number of them for variables
+" \d is any digit [0-9], \+ is 1 or more matches, which means there
+"       MUST be at least one number for a match to be seen
+" \a is any letter [a-zA-Z], * allows any number of them for variables
 " \. escapes the . character so decimal points can be represented
-" \? allows 0 or 1 matches of \., because a number can only have one decimal
+" \? allows 0 or 1 matches of \., because number only have 1 decimal
 " \d for numbers after the decimal
-" * for any number of matches, using \+ (one or more matches) would have only
-"       allowed for 2 digit numbers minimum
+" * for any number of matches, using \+ (one or more matches) would
+"       have only allowed for 2 digit numbers minimum
+" i, j, e, pi are all common numbers
 syn match numQuote "-\?\d\+\a*\.\?\d*" contained
+syn keyword numQuote j i e pi contained
 syn match num "-\?\d\+\a*\.\?\d*"
+syn keyword num j i e pi
+
 
 
 " XXX Dates:
 " Date highlighting for the Change Log
 " the first and last quote define the expression
 " \d is any digit [0-9]
-" \{1,2} will match only one or two times, although it should only ever get two
-" - is the literal hyphen, which seperates months and days, and days and years
+" \{1,2} matches 1 or 2 times, although it should only ever get 2
+" - literal hyphen, which seperates months, days, and years
 " The same three elements are repeated again for the days
 " \d is any digit, used again for the years
 " \{4} for only four digits can be matched
-" ends with : because only the dates in the change log should be highlighted
-" marked as contained, because it should only be highlighted in comments
+" ends with : because only dates in change log should be highlighted
+" marked as contained, as it should only be highlighted in comments
 " contains colon, so I can highlight the color separately
-" for some reason, the colon doesn't work as a keyword, so simple match
+" for some reason, the colon doesn't work as keyword, so simple match
 syn match date "\d\{1,2}-\d\{1,2}-\d\{4}:" contained contains=colon
 syn match colon ":" contained
 
@@ -119,9 +166,10 @@ syn match colon ":" contained
 " * matches as many matches as possible
 " i.e. a pound sign, and then as many characters as possible
 syn match comments "#.*" contains=commentFields,commentTodo,date,norwegian,russian
-" commentFields and commentTodo are contained within comments, so they are
-" as such in the definition of a comment, and listed as contained in their own
-" definitions
+" commentFields and commentTodo are contained within comments, so they
+" are as such in the definition of a comment, and listed as contained
+" in their own definitions
+" commentFields is match instead of keyword, will contain the space
 syn keyword commentFields contained Auth Revn File Func
 syn keyword commentTodo contained TODO
 syn match commentFields contained "CHANGE LOG"
@@ -133,8 +181,8 @@ syn match commentFields contained "CHANGE LOG"
 " . is any character
 " * is any number of that character
 " :: is the literal characters '::', which denotes the property
-" Using nextgroup would have been better praxis, but this works and is simple
-" After, denote the delimiter as its own syntax element to color it differently
+" Using nextgroup would have been better praxis, but this works
+" After, denote the delimiter as own syntax element to color uniquely
 " FIXME: make this better with nextgroup
 syn match fields ".*::" contains=delim
 syn match delim "::"
@@ -157,7 +205,7 @@ syn match properties "=\+>"
 " finally followed by a colon
 " nextgroup is the actual notes to be taken, as this is just the tag
 syn match noteTag "\cnotes\?:" nextgroup=notes
-" denote the notes as starting with a space and ending with and exclamation mark
+" define notes as starting with space, ending with exclamation mark
 " if it's not denoted as contained, then the whole damn thing will be
 "       highlighted
 syn region notes start=" " end="!" contained
@@ -165,8 +213,8 @@ syn region notes start=" " end="!" contained
 
 " FIXME Body:
 " This is the rest of the text
-" I found out with notes, if this isn't given as contained, it'll just highlight
-"       everything
+" I found out with notes, if this isn't given as contained, it'll just
+"       highlight everything
 "syn region body start=" " end=" "
 
 
@@ -178,6 +226,7 @@ syn case ignore
 syn keyword norwegian   nordic nordics
 syn keyword norwegian   norse
 syn keyword norwegian   norway
+syn keyword norwegian   norge
 syn keyword norwegian   norsk
 syn keyword norwegian   norwegian norwegians
 " Highlight Russian shit red
@@ -191,43 +240,58 @@ syn case match
 
 
 
-" ColorGuide: - - - - - - - - - - - - - - - - - - - - source:: :help group-name
-" Constant     -> Red
-" Comment      -> Light Blue
-" Statement    -> Orange
-" Identifier   -> Light Blue
-" PreProc      -> Purple
-" Type         -> Green
-" Special      -> Purple
-" Error        -> White, Red highlight
-" Todo         -> Black, Yellow Highlight
-" Underlined   -> Purple, underlined
-" ColorGuide: - - - - - - - - - - - - - - - - - - - - source:: :help group-name
+" ColorGuide: ctermfg and ctermbg args - - - - source:: :help cterm
+" Black
+" LightBlue/Cyan/LightCyan, Blue/DarkBlue/DarkCyan
+" Green/LightGreen, DarkGreen
+" Red/LightRed, DarkRed
+" Magenta/LightMagenta, DarkMagenta
+" Yellow/LightYellow, DarkYellow/Brown
+" White
+" Gray/LightGray, DarkGray
+" ColorGuide: ctermfg and ctermbg args - - - - source:: :help cterm
+" ColorGuide: - - - - - - - - - - - - - - - source:: :help group-name
+" Dates and fields in comments still use links for highlighting to get
+" access to 'term' arguments that don't want to load correctly, namely
+" Underline     -> PreProc (Magenta in default colo), with underline 
+" ColorGuide: - - - - - - - - - - - - - - - source:: :help group-name
 
 
 " XXX Coloring:
-hi def link quote Constant
-hi def link numQuote Special
-hi def link num Constant
+" hi[ghlight] <group> ctermfg=<color> [ctermbg=<color>]
+" group is typically a user-made group
+" ctermfg is the foreground, or font color
+" ctermbg is the background color, or highlight color
 
-hi def link comments Type
+" Note: Keep ctermfg for expression and op the same value
+hi expression ctermfg=Blue
+hi name ctermfg=LightGreen
+hi op ctermfg=Blue
+hi num ctermfg=Magenta
+
+hi unnamed ctermfg=Magenta
+hi quote ctermfg=DarkRed
+hi numQuote ctermfg=Green
+
+hi comments ctermfg=Green
+" I want the underlines, but I can't figure out how to make them work
+" Normally, you add 'term=Underline', but that doesn't quite work
 hi def link commentFields Underlined
 hi def link date Underlined
-hi def link colon Type
-hi def link commentTodo Todo
+hi colon ctermfg=Cyan
+hi commentTodo ctermfg=Black ctermbg=Yellow
 
-hi def link properties Statement
-hi def link delim Constant
+hi fields ctermfg=Red
+hi delim ctermfg=Yellow
 
-hi def link fields PreProc
+hi properties ctermfg=Red
+hi noteTag ctermfg=White ctermbg=Red
+hi notes ctermfg=White ctermbg=Red
 
-hi def link noteTag Error
-hi def link notes Error
+"hi body ctermfg=LightBlue
 
-"hi def link body Identifier
-
-hi def link norwegian Type
-hi def link russian Constant
+hi norwegian ctermfg=Green
+hi russian ctermfg=Red
 
 let b:current_syntax = "txt"
 

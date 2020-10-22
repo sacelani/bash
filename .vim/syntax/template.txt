@@ -1,0 +1,53 @@
+# ====================================================================
+# Auth: Alex Celani
+# File: template.txt
+# Revn: 10-16-2020  1.0
+# Func: Demonstrate everything the text syntax file can do
+#
+# TODO: create
+# ====================================================================
+# CHANGE LOG
+# --------------------------------------------------------------------
+# 10-16-2020: init
+#
+# ====================================================================
+
+
+Attribute:: explanation for a little while, really how ever long you
+            want it to go on for. The double quote marks this text as
+            a property. For the time being, this text also serves as
+            the body, and is really hard to properly color
+         -> this marks a field. This is the first field, field 1
+         # this is a comment. below this is field 2
+         -> here's field 2, the second field
+         => this is also a field, field 3
+         ==> fields can be "indented" to acknowledge that things are
+             subortinate to the prior
+         ---> check out that quote
+            -> "Ask not what your country can do for you, but what you
+                can do for your country" - Old Man
+            -> "I made numbers like 5 highlight differently in quotes"
+
+             (1)     Fs = 2 * f_max
+             (2)     x = e^(j*2*pi*f*t)
+
+         ==> See above in (1) where I have defined the Nyquist
+             Sampling Theorem. Expressions only highlight when there
+             is at least one space before and after the equal sign.
+             Adding this kept it from highlighting the ==> arrows
+         ==> In (2), we can see that e, j (also i), and pi are seen as
+             numbers
+            
+            NOTE: I added this next part for fun!
+         -> I want to live in Norway, I wish I was Norwegian, I want
+            to be Norse, in Norge, Speaking Norsk like the Norwegians
+         -> Or perhaps live in Russia, be Russian, a slav, and speak
+            a slavic language like the Ruskies
+            note: anything between "note:" and ! will be highlighted
+            NoTe: the trigger is case insensitive!
+
+         -> whatever <this> is, I'm not sure yet, but it does it
+         --> also contains <numb3rs>
+
+
+

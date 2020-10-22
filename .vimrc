@@ -1,14 +1,14 @@
 " ==============================================================================
 " Auth: Sam Celani
 " File: .vimrc
-" Revn: 10-02-2020  1.8
+" Revn: 10-11-2020  1.9
 " Func: Define how Vim works, set parameters, define keymaps
 "
 " TODO: add in Greek keymaps
-"       change comment color
 "       make keymaps for notetaking/indenting
-"       define my own notetaking syntax file
 "       make goddamn numpad work on terminal/in vim
+"       make all comments linewrap/<CR>wrap onto new line
+"       make truncate lines to be <= 70 characters long
 " ==============================================================================
 " CHANGE LOG
 " ------------------------------------------------------------------------------
@@ -23,6 +23,8 @@
 " 08-30-2020:  changed comment#.txt to commentN.txt to avoid parse errors
 " 09-05-2020:  changed tapstop and shiftwidth from 3 to 4
 " 10-02-2020:  added .txt to files that open commentN.txt
+" 10-11-2020:  made line numbers green
+"              changed line wrap from 80 characters to 70
 "
 " ==============================================================================
 
@@ -30,10 +32,11 @@
 syntax on
 
 " Reset highlight color for comments to lightblue
-hi comment ctermfg=lightblue
+"hi comment ctermfg=lightblue
 
-" Set line numbering
+" Set line numbering and color of such
 set number
+hi LineNr ctermfg=Green
 
 " Set column number
 set ruler
@@ -50,9 +53,8 @@ set expandtab
 " Copies indent of last line and adds onto <CR>
 set autoindent
 
-" Sets the character length of a line to 80 characters, and automatically does
-" linewrapping ^.^
-set tw=80
+" Sets character length of line to 70 characters, linewraps
+set tw=70
 
 " Remap {<Enter> with auto close brace and tab in
 " THIS COULD BE BETTER, COMBINE WITH AUTOINDENT
