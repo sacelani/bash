@@ -1,7 +1,7 @@
 # ==============================================================================
 # Auth: Alex Celani
 # File: .bash_profile
-# Revn: 10-21-2020  1.9
+# Revn: 10-21-2020  1.10
 # Func: Define user-made aliases and functions to make using the terminal easier
 #
 # TODO: Fix alias to cd
@@ -24,12 +24,16 @@
 #                 about directories for grad() and src()
 # 09-29-2020:  wrote gitMake()
 #              renamed newcd() to mkcd()
+# 10-07-2020:  fixed src() and grad() not working on colossus by changing call
+#                 to arch from "arch" to "$(arch)"
+#              added call to src() at the beginning of the file
 # 10-12-2020:  added -F to ll and l aliases
 # 10-21-2020:  added alias to spotify to make it work globally to
 #                 avoid setting PATH
 #              added alias for neofetch
 #
 # ==============================================================================
+
 
 # User specific aliases and functions
 ## Aliases
@@ -57,8 +61,8 @@ alias HOME="CD ~"
 alias spotify="~/spotify"
 
 ### neofetch
-alias neofetch="~/neofetch
-"
+alias neofetch="~/neofetch"
+
 ## Aliases
 
 export PS1="\[\e[0;31m\] \w\[\e[0;34m\] -> \[\e[0;31m\]"
