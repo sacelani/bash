@@ -1,12 +1,13 @@
 # ==============================================================================
 # Auth: Alex Celani
 # File: .bash_profile
-# Revn: 10-21-2020  1.10
+# Revn: 10-24-2020  2.1
 # Func: Define user-made aliases and functions to make using the terminal easier
 #
-# TODO: Fix alias to cd
-#       Make the damn prompt display properly, and be colored
-#       Color files in ls, and color different file differently
+# TODO: fix alias to cd
+#       color files in ls, and color different file differently
+#       pick a new color and prompt scheme
+#       rename mkcd()
 # ==============================================================================
 # CHANGE LOG
 # ------------------------------------------------------------------------------
@@ -31,6 +32,15 @@
 # 10-21-2020:  added alias to spotify to make it work globally to
 #                 avoid setting PATH
 #              added alias for neofetch
+#              finally made PS1 work with PROMPT_COMMAND
+#              made short function for showing short now playing
+# 10-24-2020:  deleted .bashrc; call to static .bashrc on colossus
+#                 will change source to .bash_profile
+#              changed alias for spotify to sp
+#              added parse_git_branch() to get branch name for PS1
+#              changed grad() to work without probing the architecture
+#              removed colors from PS1, got obnoxious
+#              added mkcd() again
 #
 # ==============================================================================
 
@@ -58,18 +68,48 @@ alias home="cd ~"
 alias HOME="CD ~"
 
 ### Control Spotify with command line
-alias spotify="~/spotify"
+alias sp="~/spotify"
 
 ### neofetch
 alias neofetch="~/neofetch"
 
 ## Aliases
 
-export PS1="\[\e[0;31m\] \w\[\e[0;34m\] -> \[\e[0;31m\]"
-export CLICOLOR=1
+## Exports
+
+# Holy shit, export PS1 kept failing, so I had to make it reload every
+# time a command is run. Hacky and probably really slow, but it works
+# PROMPT_COMMAND is a command run before it prints the prompt
+# export PS1 is the command prompt, won't run in this file, only runs
+#   in actual terminal, or here apparently
+# \e[0;31m is red
+# \W is the current folder
+# \e[0;34m is blue
+# ' -> ' is a space and then an arrow, and then a space
+# \e0;31m is red again
+# \e[m is no color
+#export PROMPT_COMMAND="export PS1='\[\e[0;32m\]\W\[\e[1;31m\] -> \[\e[0;32m\]'"
+#export PROMPT_COMMAND="export PS1='\e[0;31m$(parse_git_branch) \e[m\W -> '"
+export PROMPT_COMMAND="export PS1='\W -> '"
 #export LSCOLORS=exfxcxdxbxegabagacad
 
 ## Functions
+
+### Print name of git branch
+parse_git_branch() {
+    # call git branch to return list of all branches
+    # redirect output from 2 (error) to null
+    # pipe standard output to grep, get line with *
+    # pipe THAT to function that removes the leading space and *
+    git branch 2>/dev/null | grep '^*' | colrm 1 2
+}
+
+### Print Now Playing, short
+playing() {
+    echo -n $(~/spotify status artist)  # Print the artist, no newline
+    echo -n " - "                       # Print delimiter
+    echo    $(~/spotify status track)   # Print track, with newline
+}
 
 ### Change branch name on Github to daddy
 daddy() {
@@ -122,14 +162,19 @@ mkcd() {
 
 ### Jump to grad school directory, user specified semester if possible
 grad() {
-   if [ arch == "x86_64" ]; then    # Check to see using colossus
-      cd ~/Desktop/grad/            # Jump to grad directory, colossus
-   else                             # If not colossus, boofnet
-      cd ~/Documents/everything     # Jump to grad directory, boofnet
-   fi
+    old=$(pwd);
+    cd ~/Desktop/grad 2>/dev/null
+    if [ $old == $(pwd) ]; then
+        cd ~/Documents/everything 2>/dev/null
+    fi
+#    if [ arch == "x86_64" ]; then    # Check to see using colossus
+#      cd ~/Desktop/grad/            # Jump to grad directory, colossus
+#   else                             # If not colossus, boofnet
+#      cd ~/Documents/everything     # Jump to grad directory, boofnet
+#   fi
 
    if [ "$#" -eq 1 ]; then          # See if user entered a semester argument
-      cd "semester-$1" >/dev/null 2>/dev/null  # Go to semester, error silently
+      cd "semester-$1" 2>/dev/null  # Go to semester, error silently
    fi
 }
 
@@ -148,7 +193,3 @@ gitMake() {
 
 ## Functions
 
-# Source global definitions
-if [ -f /etc/bashrc ]; then
-   . /etc/bashrc
-fi
